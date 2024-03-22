@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection Web App</title>
+</head>
+<body>
+    <h1>Pose Detection Web App</h1>
+    <div>
+        <button onclick="startWebcam()">Start Webcam</button>
+        <button onclick="stopWebcam()">Stop Webcam</button>
+    </div>
+    <div>
+        <canvas id="videoCanvas" width="640" height="480"></canvas>
+    </div>
+    <script>
+        let videoStream;
+        const videoCanvas = document.getElementById('videoCanvas');
+        const ctx = videoCanvas.getContext('2d');
+
+        function startWebcam() {
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        videoStream = stream;
+                        videoCanvas.width = videoStream.getVideoTracks()[0].getSettings().width;
+                        videoCanvas.height = videoStream.getVideoTracks()[0].getSettings().height;
+                        videoCanvas.style.display = 'block';
+                        videoCanvas.style.margin = '0 auto';
+                        videoCanvas.style.border = '2px solid black';
+                        videoCanvas.style.borderRadius = '5px';
+                        videoCanvas.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                        videoCanvas.style.marginTop = '20px';
+                        // videoCanvas.style.backgroundColor = 'white';
+                        drawWebcam();
+                    })
+                    .catch(function(error) {
+                        console.error('Error accessing webcam: ', error);
+                    });
+            }
+        }
+
+        function stopWebcam() {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoCanvas.style.display = 'none';
+            }
+        }
+
+        function drawWebcam() {
+            ctx.drawImage(videoCanvas, 0, 0, videoCanvas.width, videoCanvas.height);
+            requestAnimationFrame(drawWebcam);
+        }
+    </script>
+</body>
+</html>
