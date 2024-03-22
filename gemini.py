@@ -17,7 +17,11 @@ def home():
 @app.route('/generate', methods=['POST'])
 def generate():
     if request.method == 'POST':
-        text_input = request.form['input_text']
+        s = request.form['input_text'] # ex:- diabetes, hypertension, etc
+    
+        text_input = "give me diet of a " + s + " in json format consisting of names only without any extra description "
+        if s == "":
+            return render_template('index.html', generated_text="Please enter a valid input")
         response = model.generate_content(text_input)
         generated_text = response.text
         return render_template('index.html', generated_text=generated_text)
