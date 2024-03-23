@@ -75,15 +75,15 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
 
             
-            cv2.putText(blended_image, str(angle1), 
-                           tuple(np.multiply(left_elbow, [640, 480]).astype(int)), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2, cv2.LINE_AA
-                                )
-            if toggle:
-                 cv2.putText(blended_image, str(angle2), 
-                           tuple(np.multiply(right_elbow, [640, 480]).astype(int)), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2, cv2.LINE_AA
-                                )
+            # cv2.putText(blended_image, str(angle1), 
+            #                tuple(np.multiply(left_elbow, [640, 480]).astype(int)), 
+            #                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2, cv2.LINE_AA
+            #                     )
+            # if toggle:
+                #  cv2.putText(blended_image, str(angle2), 
+                #            tuple(np.multiply(right_elbow, [640, 480]).astype(int)), 
+                #            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2, cv2.LINE_AA
+                #                 )
             
             
             if not toggle:
